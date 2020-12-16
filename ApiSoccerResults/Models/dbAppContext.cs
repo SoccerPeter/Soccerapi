@@ -1,0 +1,376 @@
+﻿using System;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
+
+#nullable disable
+
+namespace ApiSoccerResults.Models
+{
+    public partial class dbAppContext : DbContext
+    {
+        public dbAppContext()
+        {
+        }
+
+        public dbAppContext(DbContextOptions<dbAppContext> options)
+            : base(options)
+        {
+        }
+
+        public virtual DbSet<Event> Events { get; set; }
+        public virtual DbSet<Fixture> Fixtures { get; set; }
+        public virtual DbSet<Ligor> Ligors { get; set; }
+        public virtual DbSet<TbAlbum> TbAlbums { get; set; }
+        public virtual DbSet<TbLeagueStanding> TbLeagueStandings { get; set; }
+        public virtual DbSet<TbLoneart> TbLonearts { get; set; }
+        public virtual DbSet<TbOersakskoder> TbOersakskoders { get; set; }
+        public virtual DbSet<TbTrack> TbTracks { get; set; }
+        public virtual DbSet<Team> Teams { get; set; }
+        public virtual DbSet<VOrder> VOrders { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+                optionsBuilder.UseSqlServer("Server=tcp:vlqwv4swf2.database.windows.net,1433;Database=dbApp;User ID=sapjappl@vlqwv4swf2;Password=Olle8910;Trusted_Connection=False;");
+            }
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
+
+            modelBuilder.Entity<Event>(entity =>
+            {
+                entity.HasIndex(e => e.FixtureId, "nci_wi_Events_052B21A8C7772D2B8B66D1ECEDE1F5A7");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Elapsed).HasColumnName("elapsed");
+
+                entity.Property(e => e.FixtureId).HasColumnName("fixture_id");
+
+                entity.Property(e => e.Player)
+                    .HasMaxLength(50)
+                    .HasColumnName("player")
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.Team)
+                    .HasMaxLength(100)
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.Type)
+                    .HasMaxLength(50)
+                    .HasColumnName("type")
+                    .IsFixedLength(true);
+            });
+
+            modelBuilder.Entity<Fixture>(entity =>
+            {
+                entity.HasKey(e => e.Idnr)
+                    .HasName("PK__Fixtures__B770CDB457D31714");
+
+                entity.HasIndex(e => e.Date, "IX_Fixtures_Date");
+
+                entity.HasIndex(e => e.Id, "nci_wi_Fixtures_BEA188AFE3D4CB59A8ABB4B05F1AD322");
+
+                entity.Property(e => e.AwayGoalDetails)
+                    .HasMaxLength(256)
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.AwayLineupDefense)
+                    .HasMaxLength(256)
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.AwayLineupForward)
+                    .HasMaxLength(256)
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.AwayLineupGoalkeeper)
+                    .HasMaxLength(100)
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.AwayLineupMidfield)
+                    .HasMaxLength(256)
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.AwayLineupSubstitutes).HasColumnType("text");
+
+                entity.Property(e => e.AwayTeam)
+                    .HasMaxLength(100)
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.AwayTeamId)
+                    .HasMaxLength(100)
+                    .HasColumnName("AwayTeam_Id")
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.AwayTeamRedCardDetails)
+                    .HasMaxLength(256)
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.AwayTeamYellowCardDetails)
+                    .HasMaxLength(256)
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.Date).HasColumnType("datetime");
+
+                entity.Property(e => e.HomeGoalDetails)
+                    .HasMaxLength(256)
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.HomeLineupDefense)
+                    .HasMaxLength(256)
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.HomeLineupForward)
+                    .HasMaxLength(256)
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.HomeLineupGoalkeeper)
+                    .HasMaxLength(100)
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.HomeLineupMidfield)
+                    .HasMaxLength(256)
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.HomeLineupSubstitutes).HasColumnType("text");
+
+                entity.Property(e => e.HomeTeam)
+                    .HasMaxLength(100)
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.HomeTeamId).HasColumnName("HomeTeam_Id");
+
+                entity.Property(e => e.HomeTeamRedCardDetails)
+                    .HasMaxLength(256)
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.HomeTeamYellowCardDetails)
+                    .HasMaxLength(256)
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.League)
+                    .HasMaxLength(100)
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.Location)
+                    .HasMaxLength(100)
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.Referee)
+                    .HasMaxLength(75)
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.Round)
+                    .HasMaxLength(10)
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.Time)
+                    .HasMaxLength(100)
+                    .IsFixedLength(true);
+            });
+
+            modelBuilder.Entity<Ligor>(entity =>
+            {
+                entity.HasKey(e => e.Id1)
+                    .HasName("PK__Ligor__C49607F557BE6F8D");
+
+                entity.ToTable("Ligor");
+
+                entity.Property(e => e.Country)
+                    .HasMaxLength(75)
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.Events).HasColumnName("events");
+
+                entity.Property(e => e.Lineups).HasColumnName("lineups");
+
+                entity.Property(e => e.Livescore)
+                    .HasMaxLength(100)
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.Name)
+                    .HasMaxLength(100)
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.Standings).HasColumnName("standings");
+            });
+
+            modelBuilder.Entity<TbAlbum>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("tbAlbum");
+
+                entity.Property(e => e.Album)
+                    .HasMaxLength(100)
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.Artist)
+                    .HasMaxLength(70)
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.Bild)
+                    .HasMaxLength(256)
+                    .IsUnicode(false)
+                    .HasColumnName("bild");
+
+                entity.Property(e => e.Discid)
+                    .HasMaxLength(50)
+                    .HasColumnName("discid")
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Kategori)
+                    .HasMaxLength(50)
+                    .HasColumnName("kategori")
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.Manuell).HasColumnName("manuell");
+
+                entity.Property(e => e.Media)
+                    .HasMaxLength(10)
+                    .IsFixedLength(true);
+            });
+
+            modelBuilder.Entity<TbLeagueStanding>(entity =>
+            {
+                entity.ToTable("tbLeagueStandings");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.GoalDifference).HasColumnName("Goal_Difference");
+
+                entity.Property(e => e.GoalsAgainst).HasColumnName("Goals_Against");
+
+                entity.Property(e => e.GoalsFor).HasColumnName("Goals_For");
+
+                entity.Property(e => e.LigId).HasColumnName("LigID");
+
+                entity.Property(e => e.Liga)
+                    .HasMaxLength(100)
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.Team)
+                    .HasMaxLength(100)
+                    .IsFixedLength(true);
+            });
+
+            modelBuilder.Entity<TbLoneart>(entity =>
+            {
+                entity.ToTable("TbLoneart");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.FilAgda)
+                    .HasMaxLength(50)
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.Filnamn)
+                    .HasMaxLength(50)
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.Forklaring)
+                    .HasMaxLength(100)
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.FromDatum).HasColumnType("date");
+
+                entity.Property(e => e.ToDate).HasColumnType("date");
+
+                entity.Property(e => e.Typ)
+                    .HasMaxLength(10)
+                    .IsFixedLength(true);
+            });
+
+            modelBuilder.Entity<TbOersakskoder>(entity =>
+            {
+                entity.ToTable("TbOersakskoder");
+
+                entity.Property(e => e.Forklaring).HasMaxLength(50);
+
+                entity.Property(e => e.Kod).HasMaxLength(10);
+            });
+
+            modelBuilder.Entity<TbTrack>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("tbTracks");
+
+                entity.Property(e => e.Discid)
+                    .HasMaxLength(50)
+                    .HasColumnName("discid")
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Nr).HasColumnName("nr");
+
+                entity.Property(e => e.Track)
+                    .HasMaxLength(100)
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.UserId).HasColumnName("userId");
+            });
+
+            modelBuilder.Entity<Team>(entity =>
+            {
+                entity.Property(e => e.Country)
+                    .HasMaxLength(100)
+                    .HasColumnName("Country ")
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.HomePageUrl)
+                    .HasMaxLength(150)
+                    .HasColumnName("HomePageURL ")
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.Name)
+                    .HasMaxLength(100)
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.Stadium)
+                    .HasMaxLength(100)
+                    .HasColumnName("Stadium ")
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.TeamId).HasColumnName("Team_Id");
+
+                entity.Property(e => e.Wikilink)
+                    .HasMaxLength(150)
+                    .HasColumnName("WIKILink ")
+                    .IsFixedLength(true);
+            });
+
+            modelBuilder.Entity<VOrder>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("vOrders");
+
+                entity.Property(e => e.CustomerId).HasColumnName("CustomerID");
+
+                entity.Property(e => e.LineTotal).HasColumnType("decimal(38, 6)");
+
+                entity.Property(e => e.OrderDate).HasColumnType("smalldatetime");
+
+                entity.Property(e => e.ProductId).HasColumnName("ProductID");
+
+                entity.Property(e => e.SalesOrderNumber)
+                    .IsRequired()
+                    .HasMaxLength(25);
+
+                entity.Property(e => e.UnitPrice).HasColumnType("money");
+            });
+
+            OnModelCreatingPartial(modelBuilder);
+        }
+
+        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+    }
+}
