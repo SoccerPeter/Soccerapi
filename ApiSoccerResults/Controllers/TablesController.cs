@@ -9,8 +9,9 @@ using ApiSoccerResults.Models;
 
 namespace ApiSoccerResults.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
+    
     public class TablesController : ControllerBase
     {
         private readonly dbAppContext _context;
@@ -36,5 +37,16 @@ namespace ApiSoccerResults.Controllers
             return await tbLeagueStanding.ToListAsync();
         }
 
+        [HttpGet("{Country}/{Legue}")]
+        public async Task<ActionResult<IEnumerable<Ligor>>> getLegueId(string Country, string Legue)
+        {
+            var LegueID = from T in _context.Ligors
+                          where T.Country == Country && T.Name == Legue
+                          select  T;
+
+            return await LegueID.ToListAsync();
+        }
+
+        
     }
 }

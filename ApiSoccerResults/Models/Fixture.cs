@@ -39,6 +39,5 @@ namespace ApiSoccerResults.Models
         public string Referee { get; set; }
         public string Events { get; set; }
         public int? LigId { get; set; }
-        public List<Event> events { get; set; }
     }
 }

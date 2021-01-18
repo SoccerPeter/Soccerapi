@@ -27,6 +27,8 @@ namespace ApiSoccerResults.Models
         public virtual DbSet<TbTrack> TbTracks { get; set; }
         public virtual DbSet<Team> Teams { get; set; }
         public virtual DbSet<VOrder> VOrders { get; set; }
+        public virtual DbSet<TopScorer> TopScorers { get; set; }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -64,6 +66,49 @@ namespace ApiSoccerResults.Models
                     .HasMaxLength(50)
                     .HasColumnName("type")
                     .IsFixedLength(true);
+            });
+
+            modelBuilder.Entity<TopScorer>(entity =>
+            {
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Appearences).HasColumnName("appearences");
+
+                entity.Property(e => e.CardRed).HasColumnName("card_red");
+
+                entity.Property(e => e.CardYellow).HasColumnName("card_yellow");
+
+                entity.Property(e => e.GoalsAssists).HasColumnName("goals_assists");
+
+                entity.Property(e => e.GoalsTotal).HasColumnName("goals_total");
+
+                entity.Property(e => e.LegueId).HasColumnName("Legue_id");
+
+                entity.Property(e => e.MinutesPlayed).HasColumnName("minutes_played");
+
+                entity.Property(e => e.Name).HasMaxLength(100);
+
+                entity.Property(e => e.Nationality)
+                    .HasMaxLength(50)
+                    .HasColumnName("nationality");
+
+                entity.Property(e => e.PenaltyMissed).HasColumnName("penalty_missed");
+
+                entity.Property(e => e.PenaltySuccess).HasColumnName("penalty_success");
+
+                entity.Property(e => e.Position)
+                    .HasMaxLength(50)
+                    .HasColumnName("position");
+
+                entity.Property(e => e.ShotsOn).HasColumnName("shots_on");
+
+                entity.Property(e => e.ShotsTotal).HasColumnName("shots_total");
+
+                entity.Property(e => e.Team).HasMaxLength(100);
+
+                entity.Property(e => e.TeamName)
+                    .HasMaxLength(75)
+                    .HasColumnName("team_name");
             });
 
             modelBuilder.Entity<Fixture>(entity =>

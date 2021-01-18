@@ -9,8 +9,9 @@ using ApiSoccerResults.Models;
 
 namespace ApiSoccerResults.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
+    
     public class EventController : ControllerBase
     {
         private readonly dbAppContext _context;
