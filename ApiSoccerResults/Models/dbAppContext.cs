@@ -28,6 +28,7 @@ namespace ApiSoccerResults.Models
         public virtual DbSet<Team> Teams { get; set; }
         public virtual DbSet<VOrder> VOrders { get; set; }
         public virtual DbSet<TopScorer> TopScorers { get; set; }
+        public virtual DbSet<TbTeam> TbTeams { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -66,6 +67,47 @@ namespace ApiSoccerResults.Models
                     .HasMaxLength(50)
                     .HasColumnName("type")
                     .IsFixedLength(true);
+            });
+
+            modelBuilder.Entity<TbTeam>(entity =>
+            {
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Country)
+                    .HasMaxLength(100)
+                    .HasColumnName("country");
+
+                entity.Property(e => e.Founded).HasColumnName("founded");
+
+                entity.Property(e => e.LegueId).HasColumnName("legueId");
+
+                entity.Property(e => e.Logo)
+                    .HasMaxLength(100)
+                    .HasColumnName("logo");
+
+                entity.Property(e => e.Name)
+                    .HasMaxLength(100)
+                    .HasColumnName("name");
+
+                entity.Property(e => e.TeamId).HasColumnName("team_id");
+
+                entity.Property(e => e.VenueAddress)
+                    .HasMaxLength(100)
+                    .HasColumnName("venue_address");
+
+                entity.Property(e => e.VenueCapacity).HasColumnName("venue_capacity");
+
+                entity.Property(e => e.VenueCity)
+                    .HasMaxLength(100)
+                    .HasColumnName("venue_city");
+
+                entity.Property(e => e.VenueName)
+                    .HasMaxLength(100)
+                    .HasColumnName("venue_name");
+
+                entity.Property(e => e.VenueSurface)
+                    .HasMaxLength(50)
+                    .HasColumnName("venue_surface");
             });
 
             modelBuilder.Entity<TopScorer>(entity =>
