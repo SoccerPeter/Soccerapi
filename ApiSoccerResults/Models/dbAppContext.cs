@@ -29,6 +29,7 @@ namespace ApiSoccerResults.Models
         public virtual DbSet<VOrder> VOrders { get; set; }
         public virtual DbSet<TopScorer> TopScorers { get; set; }
         public virtual DbSet<TbTeam> TbTeams { get; set; }
+        public virtual DbSet<TbLineUp> TbLineUps { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -108,6 +109,19 @@ namespace ApiSoccerResults.Models
                 entity.Property(e => e.VenueSurface)
                     .HasMaxLength(50)
                     .HasColumnName("venue_surface");
+            });
+
+            modelBuilder.Entity<TbLineUp>(entity =>
+            {
+                entity.ToTable("tbLineUps");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Player).HasMaxLength(100);
+
+                entity.Property(e => e.Position).HasMaxLength(50);
+
+                entity.Property(e => e.Team).HasMaxLength(100);
             });
 
             modelBuilder.Entity<TopScorer>(entity =>
